@@ -28,6 +28,7 @@
             <th>Email</th>
             <th>Fecha</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +47,8 @@
               >
                 editar
               </button>
-
+            </td>
+            <td>
               <button
                 type="button"
                 name="button"
@@ -59,6 +61,8 @@
           </tr>
         </tbody>
       </table>
+
+      <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
     </div>
   </div>
 </div>

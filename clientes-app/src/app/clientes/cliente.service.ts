@@ -15,12 +15,24 @@ export class ClienteService {
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
   constructor(private http: HttpClient, private router: Router) {}
 
-  getClientes(): Observable<Cliente[]> {
+  getClientes(page: number): Observable<any> {
     // return of(CLIENTES);
-    return this.http
-      .get(this.urlEndPoint)
-      .pipe(map(response => response as Cliente[]));
+    return this.http.get(this.urlEndPoint + "/page/" + page).pipe(
+      map((response: any) => {
+        (response.content as Cliente[]).map(cliente => {
+          cliente.nombre = cliente.nombre.toUpperCase();
+          return cliente;
+        });
+        return response;
+      })
+    );
   }
+
+  // Para modificar los valores del html
+  // .map(cliente => {
+  //   cliente.nombre = cliente.nombre.toUpperCase();
+  //   return cliente;
+  // });
 
   create(cliente: Cliente): Observable<Cliente> {
     return this.http
